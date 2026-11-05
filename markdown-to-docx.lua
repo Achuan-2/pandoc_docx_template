@@ -15,7 +15,7 @@ package.path = script_dir .. "?.lua;" .. script_dir .. "?/init.lua;" .. package.
 -- 通过一个按顺序维护的模块列表来组织需要加载的 Pandoc 过滤器。
 -- 在此列表中添加/调整顺序即可，无需再手写多段 require 与循环。
 local modules = {
-    -- markdown 里的html语法识别：上下标、img标签等
+	-- markdown 里的html语法识别：上下标、img标签等
 	-- 'lua/markdown-html-recognition',
 	-- 为文本添加字体颜色支持
 	'lua/preserve_font_color',
@@ -24,7 +24,7 @@ local modules = {
 	-- pandoc默认把图片alt作为图片标题，改为title作为图片标题
 	-- 'lua/image-title-to-caption',
 	-- pandoc默认把图片alt作为图片标题，改为caption作为图片标题，用于typora导出
-	'lua/image-title-to-caption-add-number.typora',
+	'lua/image-title-to-caption-add-number-typora',
 	-- 为行内代码添加自定义样式
 	'lua/add-inline-code',
 	-- 在下方继续追加模块名称，例如：
@@ -56,13 +56,13 @@ local function append_filter(ret, name)
 	if kind == 'table' then
 		if is_array(ret) then
 			for i = 1, #ret do
-				filters[#filters+1] = ret[i]
+				filters[#filters + 1] = ret[i]
 			end
 		else
-			filters[#filters+1] = ret
+			filters[#filters + 1] = ret
 		end
 	elseif kind == 'function' then
-		filters[#filters+1] = ret
+		filters[#filters + 1] = ret
 	elseif ret ~= nil then
 		io.stderr:write(string.format('[markdown-to-docx] 警告: 模块 %s 返回不支持的类型: %s\n', name, kind))
 	end
